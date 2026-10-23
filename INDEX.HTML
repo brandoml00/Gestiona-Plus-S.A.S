@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestiona Plus S.A.S. | Soluciones administrativas para pymes</title>
+  <meta name="description" content="Gestión documental, asistencia administrativa y organización de procesos para pequeñas y medianas empresas.">
+
+  <style>
+    /* ===== 1. PALETA CORPORATIVA (mejora visual) ===== */
+    :root {
+      --verde: #0F5257;        /* color principal */
+      --verde-oscuro: #0A3B3F; /* encabezado, pie y hero */
+      --acento: #F2A33A;       /* botones y detalles */
+      --fondo: #F2F7F7;       /* fondo general */
+      --texto: #1F2D2E;        /* texto principal */
+    }
+
+    /* ===== 2. ESTILOS GENERALES ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Arial, Helvetica, sans-serif; color: var(--texto); background: var(--fondo); line-height: 1.6; }
+    section { padding: 56px 0; scroll-margin-top: 60px; }
+    .contenedor { width: min(1100px, 92%); margin-inline: auto; }
+    h2 { color: var(--verde); font-size: 1.8rem; margin-bottom: 8px; }
+    .intro { max-width: 680px; margin-bottom: 28px; }
+    :focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+    /* Enlace para saltar al contenido (accesibilidad) */
+    .salto { position: absolute; left: -999px; }
+    .salto:focus { left: 8px; top: 8px; background: #fff; padding: 8px 12px; z-index: 20; }
+
+    /* ===== 3. ENCABEZADO Y MENÚ ===== */
+    header { background: var(--verde-oscuro); color: #fff; position: sticky; top: 0; z-index: 10; }
+    .barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 24px; padding: 10px 0; }
+    .logo { font-size: 1.35rem; font-weight: 700; text-decoration: none; color: #fff; }
+    .logo span { color: var(--acento); }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 2px 16px; }
+    nav a { color: #fff; text-decoration: none; padding: 6px 2px; border-bottom: 2px solid transparent; }
+    nav a:hover { border-color: var(--acento); }
+
+    /* ===== 4. PORTADA ===== */
+    .hero { background: linear-gradient(135deg, var(--verde-oscuro), var(--verde)); color: #fff; padding: 80px 0; }
+    .hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.2; max-width: 720px; margin-bottom: 16px; }
+    .hero p { max-width: 620px; font-size: 1.1rem; margin-bottom: 28px; }
+    .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+    .boton { display: inline-block; padding: 12px 24px; border: 2px solid var(--acento); border-radius: 8px; font: inherit; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; color: #fff; background: transparent; }
+    .boton-principal { background: var(--acento); color: var(--verde-oscuro); }
+    .boton-principal:hover { background: #ffb84f; }
+
+    /* ===== 5. TARJETAS (servicios, ventajas, atención) ===== */
+    .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .tarjeta { background: #fff; border-radius: 10px; padding: 24px; border-top: 4px solid var(--acento); box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
+    .tarjeta h3 { color: var(--verde); margin-bottom: 6px; }
+    .tarjeta ul { padding-left: 18px; }
+    .icono { display: block; font-size: 2rem; margin-bottom: 6px; }
+    .fondo-blanco { background: #fff; }
+    .fondo-blanco .tarjeta { background: var(--fondo); box-shadow: none; }
+
+    /* ===== 6. PREGUNTAS FRECUENTES (mejora funcional) ===== */
+    details { background: #fff; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; border-left: 4px solid var(--verde); }
+    summary { cursor: pointer; font-weight: 700; color: var(--verde); }
+    details p { margin-top: 8px; }
+
+    /* ===== 7. CONTACTO Y FORMULARIO ===== */
+    .contacto { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    form { background: #fff; padding: 24px; border-radius: 10px; display: grid; gap: 10px; }
+    label { font-weight: 700; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #5f7274; border-radius: 6px; font: inherit; }
+    .aviso { background: #FFF1D6; padding: 8px 12px; border-radius: 6px; font-size: .9rem; }
+    #mensaje-envio { font-weight: 700; color: var(--verde); }
+
+    /* ===== 8. PIE DE PÁGINA ===== */
+    footer { background: var(--verde-oscuro); color: #fff; text-align: center; padding: 24px 0; font-size: .9rem; }
+
+    /* ===== 9. ADAPTACIÓN A CELULARES Y TABLETAS ===== */
+    @media (max-width: 768px) {
+      .contacto { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 48px 0; }
+      section { padding: 40px 0; }
+      .barra { justify-content: center; text-align: center; }
+      nav ul { justify-content: center; }
+      .acciones .boton { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="salto" href="#contenido">Saltar al contenido</a>
+
+  <!-- ENCABEZADO: logotipo y menú de navegación -->
+  <header>
+    <div class="contenedor barra">
+      <a class="logo" href="#inicio">Gestiona <span>Plus</span></a>
+      <nav aria-label="Menú principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#ventajas">Ventajas</a></li>
+          <li><a href="#atencion">Atención</a></li>
+          <li><a href="#preguntas">Preguntas</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="contenedor">
+        <h1>Orden administrativo para que su empresa se concentre en crecer</h1>
+        <p>Gestionamos documentos, procesos y atención al cliente para pymes, emprendimientos y profesionales independientes.</p>
+        <div class="acciones">
+          <a class="boton boton-principal" href="#contacto">Solicitar información</a>
+          <a class="boton" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRESENTACIÓN DE LA EMPRESA -->
+    <section id="nosotros">
+      <div class="contenedor">
+        <h2>Quiénes somos</h2>
+        <p class="intro">Gestiona Plus S.A.S. es una empresa ficticia de consultoría y apoyo en gestión administrativa. Ayudamos a organizar archivos, rutinas de oficina y comunicación con clientes, con procesos claros y fáciles de seguir.</p>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="fondo-blanco" id="servicios">
+      <div class="contenedor">
+        <h2>Nuestros servicios</h2>
+        <p class="intro">Cuatro líneas de trabajo para ordenar la operación diaria de su organización.</p>
+        <div class="rejilla">
+          <article class="tarjeta">
+            <span class="icono" aria-hidden="true">🗂️</span>
+            <h3>Gestión documental</h3>
+            <p>Clasificación, archivo físico y digital, y control de versiones de documentos.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="icono" aria-hidden="true">💼</span>
+            <h3>Asistencia administrativa virtual</h3>
+            <p>Agenda, correspondencia, cotizaciones y seguimiento de pendientes.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="icono" aria-hidden="true">🔄</span>
+            <h3>Organización de procesos</h3>
+            <p>Manuales, flujos de trabajo y listas de verificación para cada área.</p>
+          </article>
+          <article class="tarjeta">
+            <span class="icono" aria-hidden="true">🎓</span>
+            <h3>Capacitación en ofimática</h3>
+            <p>Talleres prácticos de hojas de cálculo, documentos y atención al cliente.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENTAJAS COMPETITIVAS -->
+    <section id="ventajas">
+      <div class="contenedor">
+        <h2>Por qué elegirnos</h2>
+        <div class="rejilla">
+          <article class="tarjeta"><span class="icono" aria-hidden="true">⏱️</span><h3>Respuesta rápida</h3><p>Primera respuesta en menos de 24 horas hábiles.</p></article>
+          <article class="tarjeta"><span class="icono" aria-hidden="true">🔒</span><h3>Confidencialidad</h3><p>Manejo reservado de la información de cada cliente.</p></article>
+          <article class="tarjeta"><span class="icono" aria-hidden="true">🧩</span><h3>Planes a su medida</h3><p>Servicios por horas, por proyecto o mensuales.</p></article>
+          <article class="tarjeta"><span class="icono" aria-hidden="true">📋</span><h3>Resultados documentados</h3><p>Entregamos informes y guías para que su equipo continúe solo.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATENCIÓN AL CLIENTE (mejora administrativa) -->
+    <section class="fondo-blanco" id="atencion">
+      <div class="contenedor">
+        <h2>Atención al cliente</h2>
+        <p class="intro">Horarios, canales y compromisos de servicio (datos ficticios con fines académicos).</p>
+        <div class="rejilla">
+          <article class="tarjeta">
+            <h3>🕒 Horarios</h3>
+            <ul>
+              <li>Lunes a viernes: 8:00 a. m. a 5:30 p. m.</li>
+              <li>Sábados: 8:00 a. m. a 12:00 m.</li>
+              <li>Domingos y festivos: sin atención</li>
+            </ul>
+          </article>
+          <article class="tarjeta">
+            <h3>📞 Canales</h3>
+            <ul>
+              <li>Teléfono: (601) 000 0000</li>
+              <li>WhatsApp: +57 300 000 0000</li>
+              <li>Correo: contacto@gestionaplus.example</li>
+              <li>Formulario de esta página</li>
+            </ul>
+          </article>
+          <article class="tarjeta">
+            <h3>📜 Políticas de servicio</h3>
+            <ul>
+              <li>Respuesta a solicitudes en 24 horas hábiles.</li>
+              <li>Una revisión gratuita de cada entregable.</li>
+              <li>Peticiones, quejas y reclamos atendidos en 5 días hábiles.</li>
+              <li>Tratamiento confidencial de los datos.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section id="preguntas">
+      <div class="contenedor">
+        <h2>Preguntas frecuentes</h2>
+        <details>
+          <summary>¿Qué tipo de empresas atienden?</summary>
+          <p>Pymes, emprendimientos y profesionales independientes que necesitan organizar su gestión administrativa.</p>
+        </details>
+        <details>
+          <summary>¿Puedo contratar un servicio por horas?</summary>
+          <p>Sí. Ofrecemos planes por horas, por proyecto o mensuales, según la necesidad.</p>
+        </details>
+        <details>
+          <summary>¿Cómo protegen la información de mi empresa?</summary>
+          <p>Firmamos un acuerdo de confidencialidad y solo accede al material el personal asignado.</p>
+        </details>
+        <details>
+          <summary>¿Cuánto tarda en responder una solicitud?</summary>
+          <p>Respondemos en un máximo de 24 horas hábiles por cualquiera de nuestros canales.</p>
+        </details>
+        <details>
+          <summary>¿Cómo solicito una cotización?</summary>
+          <p>Use el botón «Solicitar información» o complete el formulario de contacto y le enviaremos una propuesta.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="fondo-blanco" id="contacto">
+      <div class="contenedor contacto">
+        <div>
+          <h2>Solicite información</h2>
+          <p>Cuéntenos qué necesita y le proponemos un plan de trabajo.</p>
+          <p><strong>Dirección:</strong> Calle 00 # 00-00, Oficina 000 (ficticia)</p>
+          <p><strong>Correo:</strong> contacto@gestionaplus.example</p>
+          <p><strong>Teléfono:</strong> (601) 000 0000</p>
+        </div>
+
+        <form id="formulario" aria-label="Formulario de contacto demostrativo">
+          <p class="aviso">Formulario demostrativo: no envía información sin una integración adicional.</p>
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" required>
+          <label for="correo">Correo electrónico</label>
+          <input type="email" id="correo" required>
+          <label for="servicio">Servicio de interés</label>
+          <select id="servicio">
+            <option>Gestión documental</option>
+            <option>Asistencia administrativa virtual</option>
+            <option>Organización de procesos</option>
+            <option>Capacitación en ofimática</option>
+          </select>
+          <label for="texto">Mensaje</label>
+          <textarea id="texto" rows="3"></textarea>
+          <button class="boton boton-principal" type="submit">Solicitar información</button>
+          <p id="mensaje-envio" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <p>© 2026 Gestiona Plus S.A.S. · Empresa ficticia creada con fines académicos.</p>
+  </footer>
+
+  <script>
+    // Evita el envío real y muestra un mensaje de demostración
+    document.getElementById("formulario").addEventListener("submit", function (evento) {
+      evento.preventDefault();
+      document.getElementById("mensaje-envio").textContent = "Gracias. Esto es una demostración: no se envió ningún dato.";
+    });
+  </script>
+</body>
+</html>
